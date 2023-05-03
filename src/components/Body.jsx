@@ -1,17 +1,20 @@
 import React from 'react'
 import data from '../assets/data/memesData'
+import { useState } from 'react'
 
 export default function Body() {
-    function randomNumber(min, max) {
+    function getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    const [memeImage, setMemeImage] = useState("");
+
     function getRandomMeme() {
         const memesArr = data.data.memes;
-        let n = randomNumber(0, memesArr.length - 1)
-        const img = document.querySelector('.img');
-        img.src = memesArr[n]['url'];
+        let n = getRandomNumber(0, memesArr.length - 1)
+        setMemeImage(memesArr[n]['url']);
     }
+    
 
     return (
         <div className='flex flex-col items-center h-full'>
@@ -22,7 +25,7 @@ export default function Body() {
                 </div>
                 <button onClick={getRandomMeme} className='font-Karla flex-1 p-3 rounded text-white bg-gradient-to-r from-[#672280] to-[#A626D3]'>Get a new meme image 🖼</button>
             </div>
-            <img className='img w-8/12 m-5'/>
+            <img src={memeImage} className='w-8/12 m-5'/>
         </div>
     ) 
 }
